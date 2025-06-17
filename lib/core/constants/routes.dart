@@ -1,5 +1,6 @@
 import 'package:auvnet_ecommerce_app/features/auth/presentation/screens/login_screen.dart';
 import 'package:auvnet_ecommerce_app/features/auth/presentation/screens/register_screen.dart';
+import 'package:auvnet_ecommerce_app/features/home/views/home_screen_view.dart';
 import 'package:auvnet_ecommerce_app/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +12,8 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (_) => const LoginScreen());
     case RegisterScreen.routeName:
       return MaterialPageRoute(builder: (_) => const RegisterScreen());
+    case HomeScreenView.routeName:
+      return MaterialPageRoute(builder: (_) => const HomeScreenView());
     default:
       return MaterialPageRoute(builder: (_) => const Scaffold());
   }

@@ -10,6 +10,7 @@ class LoginScreenBody extends StatelessWidget {
   LoginScreenBody({super.key});
   String? email;
   String? password;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,11 +51,34 @@ class LoginScreenBody extends StatelessWidget {
               colorText: Colors.white,
               onPressed: () async {
                 var auth = FirebaseAuth.instance;
-                UserCredential user = await auth.createUserWithEmailAndPassword(
-                  email: email!,
-                  password: password!,
-                );
-                print(user.user!.email);
+                try {
+                  UserCredential user = await auth.signInWithEmailAndPassword(
+                    email: email!,
+                    password: password!,
+                  );
+                  if (user.user != null) {
+                    // Navigate to home screen
+                    Navigator.pushNamed(context, 'home');
+                  } else {
+                    // Show error message
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(SnackBar(content: Text('Login failed')));
+                  }
+                } on FirebaseAuthException catch (e) {
+                  // Handle specific Firebase authentication errors
+                  String message;
+                  if (e.code == 'user-not-found') {
+                    message = 'No user found for that email.';
+                  } else if (e.code == 'wrong-password') {
+                    message = 'Wrong password provided for that user.';
+                  } else {
+                    message = 'Login failed. Please try again.';
+                  }
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(SnackBar(content: Text(message)));
+                }
               },
             ),
             SizedBox(height: 10.h),

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RegisterScreenBody extends StatelessWidget {
- RegisterScreenBody({super.key});
+  RegisterScreenBody({super.key});
   String? name;
   String? email;
   String? password;
@@ -60,13 +60,12 @@ class RegisterScreenBody extends StatelessWidget {
               colorText: Colors.white,
               onPressed: () async {
                 var auth = FirebaseAuth.instance;
-                UserCredential user = await auth
-                    .createUserWithEmailAndPassword(
-                      email: email?.trim() ?? '',
-                     password: password!,
-                    );
+                UserCredential user = await auth.createUserWithEmailAndPassword(
+                  email: email?.trim() ?? '',
+                  password: password ?? '',
+                );
                 await user.user!.updateDisplayName(name!);
-                print(user.user!.email);
+                Navigator.pushNamed(context, 'login');
               },
             ),
             SizedBox(height: 10.h),

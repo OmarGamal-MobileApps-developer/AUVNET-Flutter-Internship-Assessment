@@ -1,5 +1,5 @@
 import 'package:auvnet_ecommerce_app/core/constants/colors.dart';
-import 'package:auvnet_ecommerce_app/features/auth/presentation/screens/login_screen.dart';
+import 'package:auvnet_ecommerce_app/features/auth/presentation/screens/register_screen.dart';
 import 'package:auvnet_ecommerce_app/features/onboarding/presentation/widgets/elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -70,7 +70,7 @@ class PageViewItem extends StatelessWidget {
           onPressed: () {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => const LoginScreen()),
+              MaterialPageRoute(builder: (context) => const RegisterScreen()),
             );
           },
         ),

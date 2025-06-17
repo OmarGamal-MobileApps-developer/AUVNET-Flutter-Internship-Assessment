@@ -2,12 +2,14 @@ import 'package:auvnet_ecommerce_app/core/constants/colors.dart';
 import 'package:auvnet_ecommerce_app/core/utils/input_validator.dart';
 import 'package:auvnet_ecommerce_app/features/auth/presentation/screens/widgets/custom_input_field.dart';
 import 'package:auvnet_ecommerce_app/features/onboarding/presentation/widgets/elevated_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginScreenBody extends StatelessWidget {
-  const LoginScreenBody({super.key});
-
+  LoginScreenBody({super.key});
+  String? email;
+  String? password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,12 +26,18 @@ class LoginScreenBody extends StatelessWidget {
             ),
             SizedBox(height: 50.h),
             CustomInputField(
+              onChanged: (value) {
+                email = value;
+              },
               hintText: 'mail',
               icon: Icons.email_outlined,
               validator: Validators.validateEmail,
             ),
             //SizedBox(height: 20.h),
             CustomInputField(
+              onChanged: (value) {
+                password = value;
+              },
               hintText: 'password',
               validator: Validators.validatePassword,
               icon: Icons.lock_outline,
@@ -40,8 +48,13 @@ class LoginScreenBody extends StatelessWidget {
               text: 'Login',
               backgroundColor: AppColors.primary,
               colorText: Colors.white,
-              onPressed: () {
-                // Handle login action
+              onPressed: () async {
+                var auth = FirebaseAuth.instance;
+                UserCredential user = await auth.createUserWithEmailAndPassword(
+                  email: email!,
+                  password: password!,
+                );
+                print(user.user!.email);
               },
             ),
             SizedBox(height: 10.h),

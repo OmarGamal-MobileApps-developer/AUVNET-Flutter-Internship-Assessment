@@ -5,8 +5,8 @@ import 'package:auvnet_ecommerce_app/features/onboarding/presentation/widgets/el
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class LoginScreenBody extends StatelessWidget {
-  const LoginScreenBody({super.key});
+class RegisterScreenBody extends StatelessWidget {
+  const RegisterScreenBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class LoginScreenBody extends StatelessWidget {
               height: 336.h,
               fit: BoxFit.cover,
             ),
-            SizedBox(height: 50.h),
+            SizedBox(height: 20.h),
             CustomInputField(
               hintText: 'mail',
               icon: Icons.email_outlined,
@@ -33,6 +33,12 @@ class LoginScreenBody extends StatelessWidget {
               hintText: 'password',
               validator: Validators.validatePassword,
               icon: Icons.lock_outline,
+              obscureText: true,
+            ),
+            CustomInputField(
+              hintText: 'address',
+              validator: Validators.validateAddress,
+              icon: Icons.location_on_outlined,
               obscureText: true,
             ),
             SizedBox(height: 10.h),
@@ -47,11 +53,11 @@ class LoginScreenBody extends StatelessWidget {
             SizedBox(height: 10.h),
             TextButton(
               onPressed: () {
-                // Navigate to register screen
-                Navigator.pushNamed(context, 'register');
+                // Navigate to login screen
+                Navigator.pushNamed(context, 'login');
               },
               child: Text(
-                'Create an account',
+                'Already have an account?',
                 style: TextStyle(
                   fontSize: 16.sp,
                   color: Color(0xff1877F2),

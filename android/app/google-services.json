@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "121693992410",
+    "project_id": "auvnet-internship-assess-568fb",
+    "storage_bucket": "auvnet-internship-assess-568fb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:121693992410:android:b8394607a8bc210b187ce3",
+        "android_client_info": {
+          "package_name": "com.example.auvnet_ecommerce_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNAw05i_Vr7F6IFWM8wpXXT4AFBMU3RHQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -20,7 +20,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('assets/images/LOGO.png')),
+            icon: ImageIcon(AssetImage('assets/images/home_icon.png')),
             label: 'Home',
           ),
           const BottomNavigationBarItem(

@@ -14,9 +14,9 @@ class RegisterScreenBody extends StatelessWidget {
   String? password;
 
   void _showSnackBar(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
   }
 
   @override
@@ -80,12 +80,13 @@ class RegisterScreenBody extends StatelessWidget {
 
                 var auth = FirebaseAuth.instance;
                 try {
-                  UserCredential user = await auth.createUserWithEmailAndPassword(
-                    email: email!.trim(),
-                    password: password!,
-                  );
+                  UserCredential user = await auth
+                      .createUserWithEmailAndPassword(
+                        email: email!.trim(),
+                        password: password!,
+                      );
                   await user.user!.updateDisplayName(name);
-                  Navigator.pushNamed(context, 'login');
+                  Navigator.pushReplacementNamed(context, 'login');
                 } on FirebaseAuthException catch (e) {
                   String errorMessage;
                   switch (e.code) {

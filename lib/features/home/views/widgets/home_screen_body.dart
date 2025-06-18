@@ -10,8 +10,7 @@ class HomeScreenBody extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(130),
         child: AppbarHomeScreen(),
-      ),
-      
+      ), 
     );
   }
 }

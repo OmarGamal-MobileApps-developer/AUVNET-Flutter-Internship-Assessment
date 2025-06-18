@@ -8,8 +8,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginScreenBody extends StatelessWidget {
   LoginScreenBody({super.key});
+
   String? email;
   String? password;
+
+  // دالة لعرض رسالة تنبيه
+  void _showSnackBar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +42,6 @@ class LoginScreenBody extends StatelessWidget {
               icon: Icons.email_outlined,
               validator: Validators.validateEmail,
             ),
-            //SizedBox(height: 20.h),
             CustomInputField(
               onChanged: (value) {
                 password = value;
@@ -50,41 +57,47 @@ class LoginScreenBody extends StatelessWidget {
               backgroundColor: AppColors.primary,
               colorText: Colors.white,
               onPressed: () async {
+                // التحقق من البيانات
+                if (email == null || email!.isEmpty) {
+                  _showSnackBar(context, 'الرجاء إدخال البريد الإلكتروني');
+                  return;
+                }
+                if (password == null || password!.isEmpty) {
+                  _showSnackBar(context, 'الرجاء إدخال كلمة المرور');
+                  return;
+                }
+
                 var auth = FirebaseAuth.instance;
                 try {
                   UserCredential user = await auth.signInWithEmailAndPassword(
-                    email: email!,
+                    email: email!.trim(),
                     password: password!,
                   );
-                  if (user.user != null) {
-                    // Navigate to home screen
-                    Navigator.pushNamed(context, 'home');
-                  } else {
-                    // Show error message
-                    ScaffoldMessenger.of(
-                      context,
-                    ).showSnackBar(SnackBar(content: Text('Login failed')));
-                  }
+                  Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
                 } on FirebaseAuthException catch (e) {
-                  // Handle specific Firebase authentication errors
                   String message;
-                  if (e.code == 'user-not-found') {
-                    message = 'No user found for that email.';
-                  } else if (e.code == 'wrong-password') {
-                    message = 'Wrong password provided for that user.';
-                  } else {
-                    message = 'Login failed. Please try again.';
+                  switch (e.code) {
+                    case 'user-not-found':
+                      message = 'لا يوجد مستخدم بهذا الإيميل';
+                      break;
+                    case 'wrong-password':
+                      message = 'كلمة المرور غير صحيحة';
+                      break;
+                    case 'invalid-email':
+                      message = 'البريد الإلكتروني غير صالح';
+                      break;
+                    default:
+                      message = 'فشل تسجيل الدخول: ${e.message}';
                   }
-                  ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(SnackBar(content: Text(message)));
+                  _showSnackBar(context, message);
+                } catch (e) {
+                  _showSnackBar(context, 'حدث خطأ غير متوقع: $e');
                 }
               },
             ),
             SizedBox(height: 10.h),
             TextButton(
               onPressed: () {
-                // Navigate to register screen
                 Navigator.pushNamed(context, 'register');
               },
               child: Text(

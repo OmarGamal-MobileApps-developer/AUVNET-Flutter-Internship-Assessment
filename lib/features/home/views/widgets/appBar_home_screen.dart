@@ -86,7 +86,7 @@ class AppbarHomeScreenState extends State<AppbarHomeScreen> {
                       height: 60.h,
                       child: CircleAvatar(
                         radius: 20,
-                        backgroundImage: AssetImage('assets/images/LOGO.png'),
+                        backgroundImage: AssetImage('assets/images/photo appBar.png'),
                       ),
                     ),
                   ],

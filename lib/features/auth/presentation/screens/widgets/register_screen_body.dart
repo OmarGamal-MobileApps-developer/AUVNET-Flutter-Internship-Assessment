@@ -8,9 +8,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RegisterScreenBody extends StatelessWidget {
   RegisterScreenBody({super.key});
+
   String? name;
   String? email;
   String? password;
+
+  void _showSnackBar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +50,6 @@ class RegisterScreenBody extends StatelessWidget {
               icon: Icons.email_outlined,
               validator: Validators.validateEmail,
             ),
-            //SizedBox(height: 20.h),
             CustomInputField(
               onChanged: (value) {
                 password = value;
@@ -59,19 +65,51 @@ class RegisterScreenBody extends StatelessWidget {
               backgroundColor: AppColors.primary,
               colorText: Colors.white,
               onPressed: () async {
+                if (name == null || name!.isEmpty) {
+                  _showSnackBar(context, 'الرجاء إدخال الاسم');
+                  return;
+                }
+                if (email == null || email!.isEmpty) {
+                  _showSnackBar(context, 'الرجاء إدخال البريد الإلكتروني');
+                  return;
+                }
+                if (password == null || password!.isEmpty) {
+                  _showSnackBar(context, 'الرجاء إدخال كلمة المرور');
+                  return;
+                }
+
                 var auth = FirebaseAuth.instance;
-                UserCredential user = await auth.createUserWithEmailAndPassword(
-                  email: email?.trim() ?? '',
-                  password: password ?? '',
-                );
-                await user.user!.updateDisplayName(name!);
-                Navigator.pushNamed(context, 'login');
+                try {
+                  UserCredential user = await auth.createUserWithEmailAndPassword(
+                    email: email!.trim(),
+                    password: password!,
+                  );
+                  await user.user!.updateDisplayName(name);
+                  Navigator.pushNamed(context, 'login');
+                } on FirebaseAuthException catch (e) {
+                  String errorMessage;
+                  switch (e.code) {
+                    case 'email-already-in-use':
+                      errorMessage = 'البريد الإلكتروني مستخدم بالفعل';
+                      break;
+                    case 'invalid-email':
+                      errorMessage = 'البريد الإلكتروني غير صالح';
+                      break;
+                    case 'weak-password':
+                      errorMessage = 'كلمة المرور ضعيفة جدًا';
+                      break;
+                    default:
+                      errorMessage = 'حدث خطأ: ${e.message}';
+                  }
+                  _showSnackBar(context, errorMessage);
+                } catch (e) {
+                  _showSnackBar(context, 'حدث خطأ غير متوقع: $e');
+                }
               },
             ),
             SizedBox(height: 10.h),
             TextButton(
               onPressed: () {
-                // Navigate to login screen
                 Navigator.pushNamed(context, 'login');
               },
               child: Text(

@@ -72,9 +72,9 @@ lib/
 
 ## 📸 Screenshots
 
-| Onboarding Screen | Login Screen | Home Screen |
-|------------------|--------------|-------------|
-| ![Onboarding](assets/screenshots/onboarding.png) |![Register](assets/screenshots/register.png) |![Login](assets/screenshots/login.png) | ![Home](assets/screenshots/home.png) |
+| Onboarding | Register | Login | Home |
+|------------|----------|-------|------|
+| ![Onboarding](assets/screenshots/onboarding.png) | ![Register](assets/screenshots/register.png) | ![Login](assets/screenshots/login.png) | ![Home](assets/screenshots/home.png) |
 
 > Place your screenshots in the `assets/screenshots/` directory.
 

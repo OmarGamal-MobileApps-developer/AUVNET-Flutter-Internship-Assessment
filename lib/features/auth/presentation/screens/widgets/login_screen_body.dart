@@ -12,7 +12,6 @@ class LoginScreenBody extends StatelessWidget {
   String? email;
   String? password;
 
-  // دالة لعرض رسالة تنبيه
   void _showSnackBar(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(message)),
@@ -73,7 +72,7 @@ class LoginScreenBody extends StatelessWidget {
                     email: email!.trim(),
                     password: password!,
                   );
-                  Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
+                  Navigator.pushReplacementNamed(context, 'home');
                 } on FirebaseAuthException catch (e) {
                   String message;
                   switch (e.code) {

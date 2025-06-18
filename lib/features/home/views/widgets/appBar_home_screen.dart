@@ -51,7 +51,7 @@ class AppbarHomeScreenState extends State<AppbarHomeScreen> {
                   'Delivering to',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 12.sp,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
                   ),
                   overflow: TextOverflow.ellipsis,
@@ -62,7 +62,7 @@ class AppbarHomeScreenState extends State<AppbarHomeScreen> {
                   'Al Satwa, 81A Street',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 16.sp,
+                    fontSize: 18.sp,
                     fontWeight: FontWeight.bold,
                   ),
                   overflow: TextOverflow.ellipsis,
@@ -80,13 +80,15 @@ class AppbarHomeScreenState extends State<AppbarHomeScreen> {
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                     ),
-                    SizedBox(width: 55.w),
+                    SizedBox(width: 130.w),
                     Container(
                       width: 60.w,
                       height: 60.h,
                       child: CircleAvatar(
                         radius: 20,
-                        backgroundImage: AssetImage('assets/images/photo appBar.png'),
+                        backgroundImage: AssetImage(
+                          'assets/images/photo appBar.png',
+                        ),
                       ),
                     ),
                   ],
